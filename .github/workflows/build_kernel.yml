@@ -1,6 +1,27 @@
 name: "Build Templar Supreme Kernel - Xiaomi 12S (mayfly)"
 
-on: [push]
+'on':
+  workflow_dispatch:
+    inputs:
+      BUILD_PROFILE:
+        description: "Chọn profile build"
+        required: true
+        default: "supreme"
+        type: choice
+        options:
+          - supreme
+          - gaming
+          - battery
+      ENABLE_SUSFS:
+        description: "Bật SuSFS (Ẩn root qua Play Integrity)"
+        required: true
+        default: "true"
+        type: string
+      ENABLE_BBRv3:
+        description: "Bật BBRv3 (Thay BBR1 hiện tại)"
+        required: true
+        default: "true"
+        type: string
 
 env:
   BUILD_PROFILE: "supreme"
