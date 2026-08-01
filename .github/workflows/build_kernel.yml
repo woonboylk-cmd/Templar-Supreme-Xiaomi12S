@@ -123,7 +123,7 @@ jobs:
         working-directory: kernel_src
         run: |
           echo "Patching SuSFS into VFS layer..."
-          git clone --depth=1 https://github.com/sidex15/susfs4ksu susfs_tmp
+          git clone --depth=1 https://gitlab.com/simonpunk/susfs4ksu susfs_tmp
           # Apply susfs patches
           for patch in susfs_tmp/kernel_patches/5.10/*.patch; do
             git apply "$patch" 2>/dev/null || echo "Patch $patch skipped (already applied or conflict)"
