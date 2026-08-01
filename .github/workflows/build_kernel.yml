@@ -26,9 +26,9 @@ on:
         type: boolean
 
 env:
-  BUILD_PROFILE: ${{ github.event.inputs.BUILD_PROFILE || 'supreme' }}
-  ENABLE_SUSFS: ${{ github.event.inputs.ENABLE_SUSFS || 'true' }}
-  ENABLE_BBRv3: ${{ github.event.inputs.ENABLE_BBRv3 || 'true' }}
+  BUILD_PROFILE: "supreme"
+  ENABLE_SUSFS: "true"
+  ENABLE_BBRv3: "true"
   # ============================================================
   # KERNEL SOURCE CONFIG
   # Device: Xiaomi 12S (mayfly) | SoC: Snapdragon 8+ Gen 1 (SM8475)
