@@ -101,7 +101,7 @@ jobs:
       # STEP 5: Apply SuSFS (Nếu sếp bật)
       # -------------------------------------------------------
       - name: "Apply SuSFS (Hide Root)"
-        if: ${{ github.event.inputs.ENABLE_SUSFS == 'true' }}
+        if: ${{ env.ENABLE_SUSFS == 'true' }}
         working-directory: kernel_src
         run: |
           echo "Patching SuSFS into VFS layer..."
@@ -117,7 +117,7 @@ jobs:
       # STEP 6: Apply BBRv3 (Nếu sếp bật)
       # -------------------------------------------------------
       - name: "Cherry-pick BBRv3"
-        if: ${{ github.event.inputs.ENABLE_BBRv3 == 'true' }}
+        if: ${{ env.ENABLE_BBRv3 == 'true' }}
         working-directory: kernel_src
         run: |
           echo "Fetching BBRv3 commits from upstream Linux..."
@@ -175,7 +175,7 @@ jobs:
           echo "CONFIG_UFS_QCOM_ICE=y" >> $DEFCONFIG
           
           echo "====== [9] SuSFS Config ======"
-          if [ "${{ github.event.inputs.ENABLE_SUSFS }}" = "true" ]; then
+          if [ "${{ env.ENABLE_SUSFS }}" = "true" ]; then
             echo "CONFIG_KSU_SUSFS=y" >> $DEFCONFIG
             echo "CONFIG_KSU_SUSFS_SUS_PATH=y" >> $DEFCONFIG
             echo "CONFIG_KSU_SUSFS_SUS_MOUNT=y" >> $DEFCONFIG
@@ -198,7 +198,7 @@ jobs:
           echo "CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL=y" >> $DEFCONFIG
           
           echo "====== [13] Profile-specific tuning ======"
-          if [ "${{ github.event.inputs.BUILD_PROFILE }}" = "gaming" ]; then
+          if [ "${{ env.BUILD_PROFILE }}" = "gaming" ]; then
             echo "CONFIG_CPU_BOOST_MS=200" >> $DEFCONFIG
             echo "CONFIG_CPU_BOOST_FREQ_PERF=2457600" >> $DEFCONFIG
           fi
