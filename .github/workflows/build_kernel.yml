@@ -31,7 +31,7 @@ env:
 
 jobs:
   build-supreme-kernel:
-    name: "Build Templar Supreme - ${{ github.event.inputs.BUILD_PROFILE }}"
+    name: "Build Templar Supreme - ${{ env.BUILD_PROFILE }}"
     runs-on: ubuntu-latest
     timeout-minutes: 120
 
@@ -450,7 +450,7 @@ for root, dirs, files in os.walk("."):
       - name: "Upload Flashable ZIP"
         uses: actions/upload-artifact@v4
         with:
-          name: "Templar-Supreme-Xiaomi12S-${{ github.event.inputs.BUILD_PROFILE }}"
+          name: "Templar-Supreme-Xiaomi12S-${{ env.BUILD_PROFILE }}"
           path: "*.zip"
           retention-days: 7
 
@@ -463,9 +463,9 @@ for root, dirs, files in os.walk("."):
           echo "| Device | Xiaomi 12S (mayfly) |" >> $GITHUB_STEP_SUMMARY
           echo "| Kernel | 5.10 (Snapdragon 8+ Gen 1) |" >> $GITHUB_STEP_SUMMARY
           echo "| KernelSU | kernelsu-next ✅ |" >> $GITHUB_STEP_SUMMARY
-          echo "| SuSFS | ${{ github.event.inputs.ENABLE_SUSFS }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SuSFS | ${{ env.ENABLE_SUSFS }} |" >> $GITHUB_STEP_SUMMARY
           echo "| MGLRU | ✅ |" >> $GITHUB_STEP_SUMMARY
-          echo "| BBRv3 | ${{ github.event.inputs.ENABLE_BBRv3 }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| BBRv3 | ${{ env.ENABLE_BBRv3 }} |" >> $GITHUB_STEP_SUMMARY
           echo "| Boeffla Wakelock | ✅ |" >> $GITHUB_STEP_SUMMARY
           echo "| WireGuard Native | ✅ |" >> $GITHUB_STEP_SUMMARY
           echo "| FOD Fix | ✅ |" >> $GITHUB_STEP_SUMMARY
