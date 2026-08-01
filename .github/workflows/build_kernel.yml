@@ -86,8 +86,8 @@ jobs:
           tar -xzf $HOME/clang/clang.tar.gz -C $HOME/clang
           rm $HOME/clang/clang.tar.gz
           
-          # Find and export Clang bin dir
-          CLANG_BIN=$(find $HOME/clang -name "clang" -type f | head -1 | xargs dirname)
+          # Clang is always extracted such that its binaries are in the bin folder
+          CLANG_BIN="$HOME/clang/bin"
           echo "Clang binary: $CLANG_BIN/clang"
           echo "Clang version: $($CLANG_BIN/clang --version | head -1)"
           echo "CLANG_BIN=$CLANG_BIN" >> $GITHUB_ENV
