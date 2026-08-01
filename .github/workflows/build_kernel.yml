@@ -17,13 +17,13 @@ on:
       ENABLE_SUSFS:
         description: "Bật SuSFS (Ẩn root qua Play Integrity)"
         required: true
-        default: true
-        type: boolean
+        default: "true"
+        type: string
       ENABLE_BBRv3:
         description: "Bật BBRv3 (Thay BBR1 hiện tại)"
         required: true
-        default: true
-        type: boolean
+        default: "true"
+        type: string
 
 env:
   BUILD_PROFILE: "supreme"
