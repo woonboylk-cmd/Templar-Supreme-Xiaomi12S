@@ -374,6 +374,10 @@ jobs:
           # Copy our patched anykernel.sh (Supreme Edition)
           cp kernel_src/out/arch/arm64/boot/Image ak3/Image
           
+          # Fix shebangs for Android 12-15 TWRP compatibility (remove obsolete /sbin/sh)
+          sed -i 's|#!/sbin/sh|#!/system/bin/sh|g' ak3/META-INF/com/google/android/update-binary 2>/dev/null || true
+          sed -i 's|#!/sbin/sh|#!/system/bin/sh|g' ak3/tools/ak3-core.sh 2>/dev/null || true
+          
           # Customize AnyKernel3
           cat > ak3/anykernel.sh << 'AKEOF'
           ### AnyKernel3 - Supreme Edition
