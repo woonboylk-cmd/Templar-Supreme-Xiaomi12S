@@ -297,7 +297,7 @@ jobs:
           export CROSS_COMPILE=aarch64-linux-gnu-
           export CROSS_COMPILE_COMPAT=arm-linux-gnueabi-
           
-          # Auto-fix missing Kconfig source files (e.g. drivers/misc/hwid/Kconfig)
+          # Auto-fix missing Kconfig source files & Makefiles (e.g. drivers/misc/hwid)
           cat << 'EOF' > heal_kconfig.py
           import os, re
           for root, dirs, files in os.walk("."):
@@ -311,9 +311,30 @@ jobs:
                                   if m:
                                       src_file = m.group(1)
                                       if not os.path.exists(src_file):
-                                          os.makedirs(os.path.dirname(src_file), exist_ok=True)
+                                          target_dir = os.path.dirname(src_file)
+                                          os.makedirs(target_dir, exist_ok=True)
                                           open(src_file, "a").close()
                                           print(f"[Fix] Created missing Kconfig: {src_file}")
+                                          # Also ensure Makefile exists in target directory
+                                          mk_path = os.path.join(target_dir, "Makefile")
+                                          if not os.path.exists(mk_path):
+                                              open(mk_path, "a").close()
+                                              print(f"[Fix] Created missing Makefile: {mk_path}")
+                      except Exception:
+                          pass
+                  elif file == "Makefile":
+                      mpath = os.path.join(root, file)
+                      try:
+                          with open(mpath, "r", errors="ignore") as f:
+                              for line in f:
+                                  m = re.search(r'obj-[\w\$\(\)]+\s*\+=\s*([^\s/#]+)/', line)
+                                  if m:
+                                      subdir = os.path.join(root, m.group(1))
+                                      if os.path.exists(subdir):
+                                          mk_path = os.path.join(subdir, "Makefile")
+                                          if not os.path.exists(mk_path):
+                                              open(mk_path, "a").close()
+                                              print(f"[Fix] Created missing Makefile: {mk_path}")
                       except Exception:
                           pass
           EOF
