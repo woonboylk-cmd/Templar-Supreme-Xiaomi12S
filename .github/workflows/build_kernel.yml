@@ -1,8 +1,6 @@
 name: "Build Templar Supreme Kernel - Xiaomi 12S (mayfly)"
 
 on:
-  push:
-    branches: [ "main" ]
   workflow_dispatch:
     inputs:
       BUILD_PROFILE:
@@ -11,9 +9,9 @@ on:
         default: "supreme"
         type: choice
         options:
-          - supreme   # Full extreme patches
-          - gaming    # Gaming focus (CPU Input Boost aggressive)
-          - battery   # Battery focus (Boeffla defaults stricter)
+          - supreme
+          - gaming
+          - battery
       ENABLE_SUSFS:
         description: "Bật SuSFS (Ẩn root qua Play Integrity)"
         required: true
