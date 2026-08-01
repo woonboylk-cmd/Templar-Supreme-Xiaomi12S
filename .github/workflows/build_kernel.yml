@@ -321,18 +321,10 @@ jobs:
           rm -f heal_kconfig.py
 
           # Generate .config
-          make O=out ARCH=arm64 \
-               CC=clang \
-               LD=ld.lld \
-               AR=llvm-ar \
-               NM=llvm-nm \
-               STRIP=llvm-strip \
-               OBJCOPY=llvm-objcopy \
-               OBJDUMP=llvm-objdump \
-               ${{ env.KERNEL_DEFCONFIG }}
+          make O=out ARCH=arm64 LLVM=1 ${{ env.KERNEL_DEFCONFIG }}
           
           # Build!
-          make -j$(nproc) O=out ARCH=arm64 \
+          make -j$(nproc) O=out ARCH=arm64 LLVM=1 \
                CC=clang \
                LD=ld.lld \
                AR=llvm-ar \
@@ -340,7 +332,7 @@ jobs:
                STRIP=llvm-strip \
                OBJCOPY=llvm-objcopy \
                OBJDUMP=llvm-objdump \
-               Image 2>&1 | tail -50
+               Image
           
           # Verify output
           if [ -f "out/arch/arm64/boot/Image" ]; then
