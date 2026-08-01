@@ -52,7 +52,7 @@ env:
 
 jobs:
   build-supreme-kernel:
-    name: "Build Templar Supreme - ${{ env.BUILD_PROFILE }}"
+    name: "Build Templar Supreme Kernel"
     runs-on: ubuntu-latest
     timeout-minutes: 120
 
@@ -196,7 +196,7 @@ jobs:
           echo "CONFIG_UFS_QCOM_ICE=y" >> $DEFCONFIG
           
           echo "====== [9] SuSFS Config ======"
-          if [ "${{ env.ENABLE_SUSFS }}" = "true" ]; then
+          if [ "true" = "true" ]; then
             echo "CONFIG_KSU_SUSFS=y" >> $DEFCONFIG
             echo "CONFIG_KSU_SUSFS_SUS_PATH=y" >> $DEFCONFIG
             echo "CONFIG_KSU_SUSFS_SUS_MOUNT=y" >> $DEFCONFIG
@@ -219,7 +219,7 @@ jobs:
           echo "CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL=y" >> $DEFCONFIG
           
           echo "====== [13] Profile-specific tuning ======"
-          if [ "${{ env.BUILD_PROFILE }}" = "gaming" ]; then
+          if [ "supreme" = "gaming" ]; then
             echo "CONFIG_CPU_BOOST_MS=200" >> $DEFCONFIG
             echo "CONFIG_CPU_BOOST_FREQ_PERF=2457600" >> $DEFCONFIG
           fi
@@ -471,7 +471,7 @@ jobs:
       - name: "Upload Flashable ZIP"
         uses: actions/upload-artifact@v4
         with:
-          name: "Templar-Supreme-Xiaomi12S-${{ env.BUILD_PROFILE }}"
+          name: "Templar-Supreme-Xiaomi12S-supreme"
           path: "*.zip"
           retention-days: 7
 
@@ -484,9 +484,9 @@ jobs:
           echo "| Device | Xiaomi 12S (mayfly) |" >> $GITHUB_STEP_SUMMARY
           echo "| Kernel | 5.10 (Snapdragon 8+ Gen 1) |" >> $GITHUB_STEP_SUMMARY
           echo "| KernelSU | kernelsu-next ✅ |" >> $GITHUB_STEP_SUMMARY
-          echo "| SuSFS | ${{ env.ENABLE_SUSFS }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| SuSFS | true |" >> $GITHUB_STEP_SUMMARY
           echo "| MGLRU | ✅ |" >> $GITHUB_STEP_SUMMARY
-          echo "| BBRv3 | ${{ env.ENABLE_BBRv3 }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| BBRv3 | true |" >> $GITHUB_STEP_SUMMARY
           echo "| Boeffla Wakelock | ✅ |" >> $GITHUB_STEP_SUMMARY
           echo "| WireGuard Native | ✅ |" >> $GITHUB_STEP_SUMMARY
           echo "| FOD Fix | ✅ |" >> $GITHUB_STEP_SUMMARY
